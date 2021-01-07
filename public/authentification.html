@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TP authentification</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script>$(document).ready(function () {
+            $("#form").submit(function (ev) {
+                ev.preventDefault();
+                const URL = "http://localhost:3000/register/";
+                const data = $(this).serialize();
+                $.post(URL, data, function (res) {
+                    console.log(res);
+                    var $login = $("#login"); 
+                    var $pwd = $("#pwd");
+                    var $token = $("#token");
+                    var $id = $("#id");
+                    $login.html("Vous êtes connecté en tant que: "+ res.login);
+                    $pwd.html("Votre mot de passe est: "+ res.password);
+                    $token.html("Votre token est : "+ res.token);
+                    $id.html("Votre mot de passe est : "+ res.password);
+                });
+            });
+        });</script>
+</head>
+
+<body>
+    <h2>TP Inscription et authentification</h2>
+    <form method="POST" id="form">
+        <label>Nom d'utilisateur</label>
+        <input type="text" placeholder="Nom d'utilisateur" value="Joannès" id="user" name="login">
+        <label>Mot de passe</label>
+        <input type="password" placeholder="Mot de passe" value="12345" id="pwd" name="pwd">
+        <button type="submit" id="btn">Valider</button>
+    </form>
+    <p id="login"></p>
+    <p id="pwd"></p>
+    <p id="token"></p>
+    <p id="id"></p>
+</body>
+
+</html>
